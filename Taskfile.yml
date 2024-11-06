@@ -1,0 +1,20 @@
+version: "3"
+tasks:
+  default:
+    cmds:
+      - task: create-vm
+
+  create-vm:
+    aliases: [cvm]
+    cmds:
+      - limactl start --name myvm lima.yaml && limactl shell myvm
+
+  delete-vm:
+    aliases: [dvm]
+    cmds:
+      - limactl stop myvm && limactl delete myvm
+
+  uninstall-k3s:
+    aliases: [uk]
+    cmds:
+      - /usr/local/bin/k3s-uninstall.sh

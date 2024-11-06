@@ -1,0 +1,17 @@
+networks:
+  - vzNAT: true
+images:
+  - location: "https://cloud-images.ubuntu.com/releases/24.04/release-20240423/ubuntu-24.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+mounts:
+  - location: "~"
+    writable: true
+provision:
+  - mode: system
+    script: |
+      apt-get update
+      apt-get install -y apt-transport-https ca-certificates curl net-tools golang-go
+      sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+      curl -fsSL -o /tmp/get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      chmod 700 /tmp/get_helm.sh
+      /tmp/get_helm.sh
